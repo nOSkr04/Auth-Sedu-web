@@ -27,16 +27,16 @@ const Sidebar = ({ openClass }) => {
         <div className="mobile-header-wrapper-inner">
           <div className="mobile-header-content-area">
             <div className="mobile-logo border-gray-800">
-              <Link className="d-flex" href="/">
+              <Link className="d-flex" href="/home">
                 <img
                   className="logo-night"
                   alt="GenZ"
-                  src="assets/imgs/template/logo.svg"
+                  src="/assets/imgs/template/nobglogo.png"
                 />
                 <img
                   className="d-none logo-day"
                   alt="GenZ"
-                  src="assets/imgs/template/logo-day.svg"
+                  src="/assets/imgs/template/nobglogo.png"
                 />
               </Link>
             </div>
@@ -48,30 +48,15 @@ const Sidebar = ({ openClass }) => {
                       className={"has-children active"}
                       onClick={() => handleToggle(1)}
                     >
-                      <Link href="/">Home</Link>
+                      <Link href="/home">Нүүр</Link>
                     </li>
                   </ul>
                 </nav>
               </div>
               <div className="mobile-account border-gray-800">
-                <div className="mobile-header-top bg-gray-900">
-                  <div className="user-account">
-                    <Link href="/">
-                      <img src="assets/imgs/template/ava.jpg" alt="GenZ" />
-                    </Link>
-                    <div className="content">
-                      <h6 className="user-name color-white">
-                        Hello<span className="color-white"> Steven !</span>
-                      </h6>
-                      <p className="font-xs text-muted">
-                        You have 3 new messages
-                      </p>
-                    </div>
-                  </div>
-                </div>
                 <ul className="mobile-menu">
                   <li>
-                    <Link href="/">Sign out</Link>
+                    <Link href="/">Гарах</Link>
                   </li>
                 </ul>
               </div>

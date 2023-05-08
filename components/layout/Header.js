@@ -26,16 +26,16 @@ const Header = ({ handleOpen, handleRemove, openClass }) => {
         <div className="container">
           <div className="main-header">
             <div className="header-logo">
-              <Link className="d-flex" href="/">
+              <Link className="d-flex" href="/home">
                 <img
                   className="logo-night"
                   alt="GenZ"
-                  src="assets/imgs/template/nobglogo.png"
+                  src="/assets/imgs/template/nobglogo.png"
                 />
                 <img
                   className="d-none logo-day"
                   alt="GenZ"
-                  src="assets/imgs/template/nobglogo.png"
+                  src="/assets/imgs/template/nobglogo.png"
                 />
               </Link>
             </div>
@@ -43,8 +43,8 @@ const Header = ({ handleOpen, handleRemove, openClass }) => {
               <nav className="nav-main-menu d-none d-xl-block">
                 <ul className="main-menu">
                   <li>
-                    <Link className="active" href="/">
-                      Home
+                    <Link className="active" href="/home">
+                      Нүүр
                     </Link>
                   </li>
                 </ul>
@@ -68,7 +68,8 @@ const Header = ({ handleOpen, handleRemove, openClass }) => {
 
               <Link
                 className="btn btn-linear d-none d-sm-inline-block hover-up hover-shadow"
-                href="/page-login"
+                href="/"
+                onClick={() => localStorage.removeItem("token")}
               >
                 Гарах
               </Link>

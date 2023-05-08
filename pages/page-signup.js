@@ -20,6 +20,11 @@ export default function Home() {
               <div className="text-center mt-50 pb-50">
                 <h2 className="color-linear d-inline-block">Бүртгүүлэх</h2>
               </div>
+              <img
+                className="logo-night mb-50"
+                alt="GenZ"
+                src="/assets/imgs/template/nobglogo.png"
+              />
               <div className="box-form-login pb-50">
                 <div className="form-login bg-gray-850 border-gray-800 text-start">
                   <form action="#">
@@ -27,14 +32,14 @@ export default function Home() {
                       <input
                         className="form-control bg-gray-850 border-gray-800"
                         type="text"
-                        placeholder="Full name"
+                        placeholder="Нэвтрэх нэр"
                       />
                     </div>
                     <div className="form-group position-relative">
                       <input
                         className="form-control bg-gray-850 border-gray-800 password"
                         type={passwordShown ? "text" : "password"}
-                        placeholder="Password"
+                        placeholder="Нууц үг"
                       />
                       <span
                         className="viewpass"
@@ -45,7 +50,7 @@ export default function Home() {
                       <input
                         className="form-control bg-gray-850 border-gray-800 password"
                         type={passwordShown ? "text" : "password"}
-                        placeholder="Confirm password"
+                        placeholder="Нууц үг баталгаажуулах"
                       />
                       <span
                         className="viewpass"

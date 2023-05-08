@@ -29,7 +29,7 @@ const Footer = () => {
                   >
                     <Link
                       className="icon-socials icon-insta color-gray-500"
-                      href="https://www.instagram.com"
+                      href="https://www.instagram.com/seducationapp"
                     >
                       Instagram
                     </Link>
