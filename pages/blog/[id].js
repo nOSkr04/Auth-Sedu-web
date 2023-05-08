@@ -12,7 +12,7 @@ const BlogDetails = () => {
       ? localStorage.getItem("token")
       : null;
     const fetcher = () =>
-      axios.get(`http://143.198.90.131/api/v1/articles/${id}`, {
+      axios.get(`https://seduserver.com/api/v1/articles/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -55,7 +55,7 @@ const BlogDetails = () => {
                     <div className="image-detail mb-30">
                       <img
                         className="bdrd16"
-                        src={`http://143.198.90.131/upload/${data.data.data.photo}`}
+                        src={`https://seduserver.com/upload/${data.data.data.photo}`}
                         alt="Genz"
                       />
                     </div>

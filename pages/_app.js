@@ -2,7 +2,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "../public/assets/css/style.css";
 import { useEffect } from "react";
-import { UserStore } from "../context/UserContext";
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {

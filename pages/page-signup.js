@@ -2,11 +2,26 @@ import Link from "next/link";
 import Head from "next/head";
 import Layout from "../components/layout/Layout";
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import Router from "next/router";
 
 export default function Home() {
+  const { register, handleSubmit } = useForm();
   const [passwordShown, setPasswordShown] = useState(false);
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
+  };
+  const onSubmit = (data) => {
+    axios
+      .post(`https://seduserver.com/api/v1/users/register`, data)
+      .then((res) => {
+        localStorage.setItem("token", res.data.token);
+        Router.replace("/home");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <>
@@ -27,12 +42,15 @@ export default function Home() {
               />
               <div className="box-form-login pb-50">
                 <div className="form-login bg-gray-850 border-gray-800 text-start">
-                  <form action="#">
+                  <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-group">
                       <input
                         className="form-control bg-gray-850 border-gray-800"
                         type="text"
                         placeholder="Нэвтрэх нэр"
+                        {...register("name", {
+                          required: true,
+                        })}
                       />
                     </div>
                     <div className="form-group position-relative">
@@ -40,13 +58,16 @@ export default function Home() {
                         className="form-control bg-gray-850 border-gray-800 password"
                         type={passwordShown ? "text" : "password"}
                         placeholder="Нууц үг"
+                        {...register("password", {
+                          required: true,
+                        })}
                       />
                       <span
                         className="viewpass"
                         onClick={togglePasswordVisiblity}
                       />
                     </div>
-                    <div className="form-group position-relative">
+                    {/* <div className="form-group position-relative">
                       <input
                         className="form-control bg-gray-850 border-gray-800 password"
                         type={passwordShown ? "text" : "password"}
@@ -56,7 +77,7 @@ export default function Home() {
                         className="viewpass"
                         onClick={togglePasswordVisiblity}
                       />
-                    </div>
+                    </div> */}
                     <div className="form-group">
                       <button
                         className="btn btn-linear color-gray-850 hover-up"

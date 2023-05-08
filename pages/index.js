@@ -4,19 +4,17 @@ import Layout from "../components/layout/Layout";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import useHooks from "../context/useHooks";
 import Router from "next/router";
 
 export default function Home() {
   const { register, handleSubmit } = useForm();
-  const [setToken] = useHooks();
   const [passwordShown, setPasswordShown] = useState(false);
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
   const onSubmit = (data) => {
     axios
-      .post(`http://143.198.90.131/api/v1/users/login`, data)
+      .post(`https://seduserver.com/api/v1/users/login`, data)
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         Router.replace("/home");
