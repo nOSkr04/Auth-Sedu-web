@@ -16,7 +16,23 @@ const BlogDetails = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-    const { data } = useSwr(`/articles/${id}`, fetcher);
+    const { data, isLoading } = useSwr(`/articles/${id}`, fetcher);
+    const authMe = (url) =>
+      axios.get("https://seduserver.com/api/v1/users/me", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+    const { data: user } = useSwr("/users/me", authMe);
+
+    const targetTime = parseISO(
+      user?.data.data.deadline ? user?.data.data.deadline : ""
+    );
+    const isLessThanTargetTime = isAfter(currentTime, targetTime);
+    useEffect(() => {
+      if (isLessThanTargetTime) {
+        Router.replace("/payment");
+      }
+    }, [isLoading]);
     if (!data) {
       return null;
     }
