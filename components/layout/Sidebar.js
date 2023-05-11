@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Router from "next/router";
 import { useState } from "react";
 
 const Sidebar = ({ openClass }) => {
@@ -53,10 +54,27 @@ const Sidebar = ({ openClass }) => {
                   </ul>
                 </nav>
               </div>
+              <div className=" mb-0 align-center mt-30">
+                <a
+                  href="https://apps.apple.com/us/app/sedu/id6446701380"
+                  target="_blank"
+                >
+                  <span className="text-white">
+                    Хэрэв танд IOS үйлдлын системтэй утас, таблет байгаа бол
+                    татах
+                  </span>
+                  <img alt="GenZ" src="/assets/appstore.png" />
+                </a>
+              </div>
               <div className="mobile-account border-gray-800">
                 <ul className="mobile-menu">
                   <li>
-                    <Link href="/">Гарах</Link>
+                    <Link
+                      href="/"
+                      onClick={() => localStorage.removeItem("token")}
+                    >
+                      Гарах
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -64,9 +82,9 @@ const Sidebar = ({ openClass }) => {
                 Copyright 2022 © Sedu.mn.
                 <br />
                 Үйлчилгээний нөхцөл
-                <Link href="http://alithemes.com" target="_blank">
+                <span onClick={() => Router.replace("privacy-policy")}>
                   &nbsp; үзэх
-                </Link>
+                </span>
               </div>
             </div>
           </div>

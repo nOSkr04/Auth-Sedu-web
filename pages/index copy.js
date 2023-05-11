@@ -14,7 +14,6 @@ export default function Home() {
     formState: { errors },
     setError,
     clearErrors,
-    getValues,
   } = useForm();
   const [passwordShown, setPasswordShown] = useState(false);
   const togglePasswordVisiblity = () => {
@@ -23,37 +22,37 @@ export default function Home() {
   const currentTime = new Date();
   const onSubmit = (data) => {
     axios
-      .post(`https://seduserver.com/api/v1/users/register`, data)
+      .post(`https://seduserver.com/api/v1/users/login`, data)
       .then((res) => {
         const targetTime = parseISO(
           res.data.user.deadline ? res.data.user.deadline : ""
         );
+        console.log(isAfter(currentTime, targetTime));
         if (isAfter(currentTime, targetTime)) {
           Router.replace("/payment");
         } else {
           Router.replace("/home");
         }
         localStorage.setItem("token", res.data.token);
+        Router.replace("/home");
       })
       .catch((err) => {
-        if (err.response) {
-          setError("serverError", {
-            type: err?.response.status || "",
-          });
-        }
+        setError("serverError", {
+          type: err.response.status,
+        });
       });
   };
   return (
     <>
       <Head>
-        <title>Sedu - Бүртгэл</title>
+        <title>Sedu - Нэвтрэх</title>
       </Head>
       <div className="cover-home3">
         <div className="container">
           <div className="row">
             <div className="col-xl-10 col-lg-12 m-auto">
               <div className="text-center mt-50 pb-50">
-                <h2 className="color-linear d-inline-block">Бүртгүүлэх</h2>
+                <h2 className="color-linear d-inline-block">Тавтай морил</h2>
               </div>
               <img
                 className="logo-night mb-50"
@@ -72,6 +71,7 @@ export default function Home() {
                         placeholder="Нэвтрэх нэр"
                         {...register("name", {
                           required: true,
+                          minLength: 4,
                         })}
                       />
                       {errors?.name && (
@@ -90,15 +90,15 @@ export default function Home() {
                     </div>
                     <div className="form-group position-relative">
                       <input
-                        className={`form-control bg-gray-850 ${
-                          errors.password ? "border-danger" : "border-gray-800"
-                        }`}
+                        className="form-control bg-gray-850 border-gray-800 password"
                         type={passwordShown ? "text" : "password"}
                         placeholder="Нууц үг"
                         {...register("password", {
                           required: true,
+                          minLength: 4,
                         })}
                       />
+                      {console.log(errors)}
                       {errors?.password && (
                         <>
                           {errors.password.type === "required" ? (
@@ -117,66 +117,28 @@ export default function Home() {
                         onClick={togglePasswordVisiblity}
                       />
                     </div>
-                    {errors?.serverError && (
+                    {errors.serverError && (
                       <p className="text-danger mb-20">
-                        Бүртгэлтэй хэрэглэгч байна
+                        Нэвтрэх нэр нууц үг таарахгүй байна
                       </p>
                     )}
-                    <div className="form-group position-relative">
-                      <input
-                        className={`form-control bg-gray-850 ${
-                          errors.cpassword ? "border-danger" : "border-gray-800"
-                        }`}
-                        type={passwordShown ? "text" : "password"}
-                        placeholder="Нууц үг баталгаажуулах"
-                        {...register("cpassword", {
-                          validate: (value) => {
-                            const { password } = getValues();
-                            return password === value || "Нууц үг тохирсонгүй";
-                          },
-                        })}
-                      />
-                      {errors?.cpassword && (
-                        <>
-                          <p className="text-danger">
-                            Нууц үг хоорондоо таарахгүй байна
-                          </p>
-                        </>
-                      )}
-                      <span
-                        className="viewpass"
-                        onClick={togglePasswordVisiblity}
-                      />
-                    </div>
                     <div className="form-group">
                       <button
                         className="btn btn-linear color-gray-850 hover-up"
                         type="submit"
                         onClick={() => clearErrors("serverError")}
                       >
-                        Бүртгэл үүсгэх
+                        Нэвтрэх
                       </button>
                     </div>
                     <div className="form-group mb-0">
-                      <span>Хэрэв танд бүртгэл байгаа бол</span>
-                      <Link className="color-linear" href="/">
+                      <span>Хэрэв танд бүртгэл байхгүй бол?</span>
+                      <Link className="color-linear" href="/page-signup">
                         {" "}
-                        Нэвтрэх
+                        Бүртгүүлэх
                       </Link>
                     </div>
                   </form>
-                  <div className=" mb-0 align-center mt-10">
-                    <a
-                      href="https://apps.apple.com/us/app/sedu/id6446701380"
-                      target="_blank"
-                    >
-                      <span className="text-white">
-                        Хэрэв танд IOS үйлдлын системтэй утас, таблет байгаа бол
-                        татах
-                      </span>
-                      <img alt="GenZ" src="/assets/appstore.png" />
-                    </a>
-                  </div>
                 </div>
               </div>
             </div>
