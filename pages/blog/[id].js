@@ -4,9 +4,12 @@ import Layout from "../../components/layout/Layout";
 import useSwr from "swr";
 import axios from "axios";
 import Head from "next/head";
+import { isAfter, parseISO } from "date-fns";
+import { useEffect } from "react";
 const BlogDetails = () => {
   if (typeof window !== "undefined") {
     let Router = useRouter();
+    const currentTime = new Date();
     const { id } = Router.query;
     const token = localStorage.getItem("token")
       ? localStorage.getItem("token")
