@@ -28,7 +28,7 @@ export default function Qpay() {
       // /users/callbacks/6459430355ab90991381a592/200?qpay_payment_id=089741882240445
       axios
         .get(
-          `https://altanzaan.org/api/v1/users/callbacks/${user?.data.data._id}/200`
+          `https://sedu.mn/api/v1/users/callbacks/${user?.data.data._id}/200`
         )
         .then((res) => {
           if (res.data.success) {
