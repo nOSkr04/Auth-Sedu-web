@@ -28,8 +28,6 @@ export default function Qpay() {
       axios
         .get(
           `https://seduserver.com/api/v1/users/check/challbacks/${invoince}/${user.data.data._id}`
-          // `https://www.sedu.mn/api/v1/users/check/challbacks/${invoince}/200`,
-          // `https://seduserver.com/api/v1/users/check/challbacks/${req.params.id}/${req.params.numId}`
         )
         .then((res) => {
           Router.replace("/confirm");

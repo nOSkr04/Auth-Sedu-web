@@ -44,7 +44,7 @@ const payment = () => {
         .post(
           `https://seduserver.com/api/v1/users/invoice/${data?.data.data._id}`,
           {
-            amount: 200,
+            amount: 20000,
           },
           {
             headers: { Authorization: `Bearer ${token}` },
