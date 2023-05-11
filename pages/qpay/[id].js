@@ -24,6 +24,7 @@ export default function Qpay() {
       });
 
     const { data } = useSwr(`/wallets/${id}`, wallet);
+
     const onRefresh = useCallback((invoince) => {
       axios
         .get(
@@ -36,7 +37,6 @@ export default function Qpay() {
         .catch((err) => {
           console.log(err, "err");
         });
-      console.log("first");
     }, []);
     return (
       <>
@@ -71,6 +71,24 @@ export default function Qpay() {
                           alt="Genz"
                         />
                       </div>
+                    </div>
+                    <div className="row">
+                      {data?.data.data.urls.map((item) => {
+                        return (
+                          <a
+                            className="col-lg-2 wow animate__animated animate__fadeIn mt-50"
+                            href={item.link}
+                          >
+                            <img
+                              src={item.logo}
+                              alt="Genz"
+                              width={50}
+                              height={50}
+                            />
+                            <p className="text-white">{item.name}</p>
+                          </a>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>

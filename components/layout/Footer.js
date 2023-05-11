@@ -30,8 +30,21 @@ const Footer = () => {
                     <Link
                       className="icon-socials icon-insta color-gray-500"
                       href="https://www.instagram.com/seducationapp"
+                      target="_blank"
                     >
                       Instagram
+                    </Link>
+                  </div>
+                  <div
+                    className="d-inline-block wow animate__animated animate__fadeIn"
+                    data-wow-delay=".4s"
+                  >
+                    <Link
+                      className="icon-socials icon-facebook color-gray-500"
+                      href="https://www.facebook.com/Seduapp"
+                      target="_blank"
+                    >
+                      Facebook
                     </Link>
                   </div>
                 </div>

@@ -3639,6 +3639,10 @@ input {
   background: url(../imgs/template/icons/insta.svg) no-repeat 0px 0px;
   transition-duration: 0.2s;
 }
+.footer .icon-socials.icon-facebook {
+  background: url(../imgs/template/icons/facebook.svg) no-repeat 0px 0px;
+  transition-duration: 0.2s;
+}
 .footer .icon-socials.icon-insta:hover {
   background: url(../imgs/template/icons/insta-hover.svg) no-repeat 0px 0px;
   transition-duration: 0.2s;
