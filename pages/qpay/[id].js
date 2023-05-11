@@ -1,5 +1,5 @@
 import Head from "next/head";
-import useSwr from "swr";
+import useSwr, { mutate } from "swr";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
@@ -25,19 +25,20 @@ export default function Qpay() {
 
     const { data } = useSwr(`/wallets/${id}`, wallet);
     const onRefresh = useCallback((invoince) => {
-      // /users/callbacks/6459430355ab90991381a592/200?qpay_payment_id=089741882240445
       axios
         .get(
-          `https://sedu.mn/api/v1/users/callbacks/${user?.data.data._id}/200`
+          `https://seduserver.com/api/v1/users/check/challbacks/${invoince}/${user.data.data._id}`
+          // `https://www.sedu.mn/api/v1/users/check/challbacks/${invoince}/200`,
+          // `https://seduserver.com/api/v1/users/check/challbacks/${req.params.id}/${req.params.numId}`
         )
         .then((res) => {
-          if (res.data.success) {
-            console.log(res.data);
-          }
+          Router.replace("/confirm");
+          mutate("/users/me");
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err, "err");
         });
+      console.log("first");
     }, []);
     return (
       <>
