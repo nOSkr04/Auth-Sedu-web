@@ -51,7 +51,17 @@ const BlogDetails = ({ data }) => {
   return (
     <>
       <Head>
-        <title>Нийтлэл дэлгэрэнгүй</title>
+        <title>{data.data.name}</title>
+        <meta
+          property="og:url"
+          content={`https://www.sedu.mn${Router.asPath}`}
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={data.data.name} />
+        <meta
+          property="og:image"
+          content={`https://seduserver.com/upload/${data.data.photo}`}
+        />
       </Head>
       <Layout>
         <div className="cover-home3">
