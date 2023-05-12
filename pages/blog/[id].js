@@ -6,96 +6,104 @@ import axios from "axios";
 import Head from "next/head";
 import { isAfter, parseISO } from "date-fns";
 import { useEffect } from "react";
-const BlogDetails = () => {
-  if (typeof window !== "undefined") {
-    let Router = useRouter();
-    const currentTime = new Date();
-    const { id } = Router.query;
-    const token = localStorage.getItem("token")
-      ? localStorage.getItem("token")
-      : null;
-    const fetcher = () =>
-      axios.get(`https://seduserver.com/api/v1/articles/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
+import { getFromStorage } from "../../components/token";
+
+export async function getServerSideProps(context) {
+  const res = await fetch(
+    `https://seduserver.com/api/v1/articles/${context.query.id}`
+  );
+
+  const data = await res.json();
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
+  return {
+    props: { data },
+  };
+}
+
+const BlogDetails = ({ data }) => {
+  let Router = useRouter();
+  const currentTime = new Date();
+  const getUser = () => {
+    axios
+      .get("https://seduserver.com/api/v1/users/me", {
+        headers: { Authorization: getFromStorage("token") },
+      })
+      .then((res) => {
+        const genData = res.data.data;
+        const targetTime = parseISO(genData.deadline);
+        const isLessThanTargetTime = isAfter(currentTime, targetTime);
+        if (isLessThanTargetTime) {
+          Router.replace("/payment");
+        }
+      })
+      .catch((err) => {
+        Router.replace("/");
       });
+  };
+  useEffect(() => {
+    getUser();
+  }, []);
 
-    const { data, isLoading } = useSwr(`/articles/${id}`, fetcher);
-    const authMe = (url) =>
-      axios.get("https://seduserver.com/api/v1/users/me", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-    const { data: user } = useSwr("/users/me", authMe);
-
-    const targetTime = parseISO(
-      user?.data.data.deadline ? user?.data.data.deadline : ""
-    );
-    const isLessThanTargetTime = isAfter(currentTime, targetTime);
-    useEffect(() => {
-      if (isLessThanTargetTime) {
-        Router.replace("/payment");
-      }
-    }, [isLoading]);
-    if (!data) {
-      return null;
-    }
-    return (
-      <>
-        <Head>
-          <title>Нийтлэл дэлгэрэнгүй</title>
-        </Head>
-        <Layout>
-          <div className="cover-home3">
-            <div className="container">
-              <div className="row">
-                <div className="col-xl-1" />
-                <div className="col-xl-10 col-lg-12">
-                  <div className="pt-30 border-bottom border-gray-800 pb-20">
-                    <div className="box-breadcrumbs">
-                      <ul className="breadcrumb">
-                        <li>
-                          <Link className="home" href="/home">
-                            Нүүр
-                          </Link>
-                        </li>
-                        <li>
-                          <span>{data.data.data.name}</span>
-                        </li>
-                      </ul>
-                    </div>
+  return (
+    <>
+      <Head>
+        <title>Нийтлэл дэлгэрэнгүй</title>
+      </Head>
+      <Layout>
+        <div className="cover-home3">
+          <div className="container">
+            <div className="row">
+              <div className="col-xl-1" />
+              <div className="col-xl-10 col-lg-12">
+                <div className="pt-30 border-bottom border-gray-800 pb-20">
+                  <div className="box-breadcrumbs">
+                    <ul className="breadcrumb">
+                      <li>
+                        <Link className="home" href="/home">
+                          Нүүр
+                        </Link>
+                      </li>
+                      <li>
+                        <span>{data.data.name}</span>
+                      </li>
+                    </ul>
                   </div>
+                </div>
 
-                  <div className="row mt-50 align-items-end">
-                    <div className="col-lg-8 m-auto text-center">
-                      <h2 className="color-linear">{data.data.data.name}</h2>
-                    </div>
+                <div className="row mt-50 align-items-end">
+                  <div className="col-lg-8 m-auto text-center">
+                    <h2 className="color-linear">{data.data.name}</h2>
                   </div>
-                  <div className="col-lg-12 d-flex justify-content-around mt-50">
-                    <div className="image-detail mb-30">
-                      <img
-                        className="bdrd16"
-                        src={`https://seduserver.com/upload/${data.data.data.photo}`}
-                        alt="Genz"
-                      />
-                    </div>
+                </div>
+                <div className="col-lg-12 d-flex justify-content-around mt-50">
+                  <div className="image-detail mb-30">
+                    <img
+                      className="bdrd16"
+                      src={`https://seduserver.com/upload/${data.data.photo}`}
+                      alt="Genz"
+                    />
                   </div>
-                  <div className="row mt-30">
-                    <div className="col-lg-8 m-auto">
-                      <div
-                        dangerouslySetInnerHTML={{
-                          __html: data.data.data.description,
-                        }}
-                      />
-                    </div>
+                </div>
+                <div className="row mt-30">
+                  <div className="col-lg-8 m-auto">
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: data.data.description,
+                      }}
+                    />
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </Layout>
-      </>
-    );
-  }
+        </div>
+      </Layout>
+    </>
+  );
 };
 
 export default BlogDetails;
