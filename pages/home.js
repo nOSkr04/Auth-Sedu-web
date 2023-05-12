@@ -6,6 +6,7 @@ import axios from "axios";
 import { isAfter, parseISO } from "date-fns";
 import { useEffect, useState } from "react";
 import Router from "next/router";
+import Banner from "../components/slider/Banner";
 const customStyles = {
   content: {
     top: "50%",
@@ -56,7 +57,7 @@ export default function Home() {
                 <div className="col-xl-1" />
                 <div className="col-xl-10 col-lg-12">
                   <div className="banner banner-home2">
-                    <div className="text-center">
+                    <div className="text-center mb-20">
                       <h6 className="color-gray-600">Sedu - д тавтай морил</h6>
                       <h1 className="color-white">
                         Монголын<span className="color-linear"> анхны </span>
@@ -64,8 +65,9 @@ export default function Home() {
                         <span className="color-linear"> вэб</span>
                       </h1>
                     </div>
+                    <Banner />
                   </div>
-                  <div className="row mt-70">
+                  <div className="row mt-40">
                     {data?.data?.data.map((item) => {
                       return (
                         <div
