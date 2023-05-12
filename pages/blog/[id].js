@@ -62,6 +62,9 @@ const BlogDetails = ({ data }) => {
           property="og:image"
           content={`https://seduserver.com/upload/${data.data.photo}`}
         />
+        <meta property="og:image:width" content="1200" />
+
+        <meta property="og:image:height" content="630" />
       </Head>
       <Layout>
         <div className="cover-home3">
