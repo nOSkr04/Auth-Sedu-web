@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import Router from "next/router";
 import { isAfter, parseISO } from "date-fns";
+import Banner from "../components/slider/Banner";
 
 export default function Home() {
   const {
@@ -182,6 +183,9 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </div>
+      <div className="mb-50 ml-20 mr-20 ">
+        <Banner />
       </div>
     </>
   );
