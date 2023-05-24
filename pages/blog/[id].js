@@ -10,7 +10,7 @@ import { getFromStorage } from "../../components/token";
 
 export async function getServerSideProps(context) {
   const res = await fetch(
-    `https://seduserver.com/api/v1/articles/${context.query.id}`
+    `https://seduback.com/api/v1/articles/${context.query.id}`
   );
 
   const data = await res.json();
@@ -23,13 +23,13 @@ export async function getServerSideProps(context) {
     props: { data },
   };
 }
-
 const BlogDetails = ({ data }) => {
+  console.log(data);
   let Router = useRouter();
   const currentTime = new Date();
   const getUser = () => {
     axios
-      .get("https://seduserver.com/api/v1/users/me", {
+      .get("https://seduback.com/api/v1/users/me", {
         headers: { Authorization: getFromStorage("token") },
       })
       .then((res) => {
@@ -60,7 +60,7 @@ const BlogDetails = ({ data }) => {
         <meta property="og:title" content={data.data.name} />
         <meta
           property="og:image"
-          content={`https://seduserver.com/upload/${data.data.photo}`}
+          content={`https://seduback.com/upload/${data.data.photo}`}
         />
         <meta property="og:image:width" content="1200" />
 
@@ -96,7 +96,7 @@ const BlogDetails = ({ data }) => {
                   <div className="image-detail mb-30">
                     <img
                       className="bdrd16"
-                      src={`https://seduserver.com/upload/${data.data.photo}`}
+                      src={`https://seduback.com/upload/${data.data.photo}`}
                       alt="Genz"
                     />
                   </div>

@@ -12,14 +12,14 @@ export default function Qpay() {
       : null;
 
     const authMe = () =>
-      axios.get("https://seduserver.com/api/v1/users/me", {
+      axios.get("https://seduback.com/api/v1/users/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
     const { data: user } = useSwr("/users/me", authMe);
 
     const wallet = () =>
-      axios.get(`https://seduserver.com/api/v1/wallets/${id}`, {
+      axios.get(`https://seduback.com/api/v1/wallets/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -28,7 +28,7 @@ export default function Qpay() {
     const onRefresh = useCallback((invoince) => {
       axios
         .get(
-          `https://seduserver.com/api/v1/users/check/challbacks/${invoince}/${user.data.data._id}`
+          `https://seduback.com/api/v1/users/check/challbacks/${invoince}/${user.data.data._id}`
         )
         .then((res) => {
           Router.replace("/confirm");

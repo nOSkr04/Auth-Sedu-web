@@ -19,7 +19,7 @@ const payment = () => {
       setOpenClass("sidebar-visible");
     };
     const authMe = () =>
-      axios.get("https://seduserver.com/api/v1/users/me", {
+      axios.get("https://seduback.com/api/v1/users/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -42,7 +42,7 @@ const payment = () => {
       }
       axios
         .post(
-          `https://seduserver.com/api/v1/users/invoice/${data?.data.data._id}`,
+          `https://seduback.com/api/v1/users/invoice/${data?.data.data._id}`,
           {
             amount: 20000,
           },

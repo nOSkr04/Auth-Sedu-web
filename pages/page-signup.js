@@ -24,7 +24,7 @@ export default function Home() {
   const currentTime = new Date();
   const onSubmit = (data) => {
     axios
-      .post(`https://seduserver.com/api/v1/users/register`, data)
+      .post(`https://seduback.com/api/v1/users/register`, data)
       .then((res) => {
         const targetTime = parseISO(
           res.data.user.deadline ? res.data.user.deadline : ""

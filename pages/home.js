@@ -24,11 +24,11 @@ export default function Home() {
       : null;
     const currentTime = new Date();
     const fetcher = (url) =>
-      axios.get("https://seduserver.com/api/v1/articles", {
+      axios.get("https://seduback.com/api/v1/articles", {
         headers: { Authorization: `Bearer ${token}` },
       });
     const authMe = (url) =>
-      axios.get("https://seduserver.com/api/v1/users/me", {
+      axios.get("https://seduback.com/api/v1/users/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -78,7 +78,7 @@ export default function Home() {
                             <div className="card-image mb-20">
                               <Link href={`/blog/${item.id}`}>
                                 <img
-                                  src={`https://seduserver.com/upload/${item.photo}`}
+                                  src={`https://seduback.com/upload/${item.photo}`}
                                   alt="Genz"
                                 />
                               </Link>
