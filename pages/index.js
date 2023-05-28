@@ -150,6 +150,18 @@ export default function Home() {
                       <img alt="GenZ" src="/assets/appstore.png" />
                     </a>
                   </div>
+                  <div className=" mb-0 align-center mt-10">
+                    <a
+                      href="https://play.google.com/store/apps/details?id=mn.seducation"
+                      target="_blank"
+                    >
+                      <span className="text-white">
+                        Хэрэв танд Android үйлдлын системтэй утас, таблет байгаа
+                        бол татах
+                      </span>
+                      <img alt="GenZ" src="/assets/googleLogo.png" />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
