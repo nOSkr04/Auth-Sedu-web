@@ -7,6 +7,7 @@ import { isAfter, parseISO } from "date-fns";
 import { useEffect, useState } from "react";
 import Router from "next/router";
 import Banner from "../components/slider/Banner";
+import Pagination from "../components/elements/Pagination";
 const customStyles = {
   content: {
     top: "50%",
@@ -22,17 +23,21 @@ export default function Home() {
     const token = localStorage.getItem("token")
       ? localStorage.getItem("token")
       : null;
+    const [pageIndex, setPageIndex] = useState(1);
     const currentTime = new Date();
     const fetcher = (url) =>
-      axios.get("https://seduback.com/api/v1/articles", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      axios.get(
+        `https://seduback.com/api/v1/articles?limit=10&page=${pageIndex}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
     const authMe = (url) =>
       axios.get("https://seduback.com/api/v1/users/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-    const { data, isLoading } = useSwr("/articles", fetcher);
+    const { data, isLoading } = useSwr(`/articles.${pageIndex}`, fetcher);
     const { data: user } = useSwr("/users/me", authMe);
 
     const targetTime = parseISO(
@@ -131,6 +136,10 @@ export default function Home() {
                         </div>
                       );
                     })}
+                    <Pagination
+                      pageIndex={pageIndex}
+                      setPageIndex={setPageIndex}
+                    />
                   </div>
 
                   {/* <div className="text-center">
